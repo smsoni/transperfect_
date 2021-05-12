@@ -48,6 +48,8 @@ namespace WahooPageObject.Pages
         {
             get
             {
+                WebDriverWait wait = new WebDriverWait(DriverContext.Driver, TimeSpan.FromSeconds(60));
+                wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(expressShippingXpath)));
                 return DriverContext.Driver.FindElement(By.XPath(expressShippingXpath));
             }
         }
@@ -160,20 +162,23 @@ namespace WahooPageObject.Pages
             state.SelectByText("Cantabria");
             Zipcode.SendKeys("08940");
             Phone.SendKeys("5555555555");
+
             ExpressShipping.Click();
         }
 
         public void AddCardDetails()
         {
-           // DriverContext.Driver.SwitchTo().Frame(CreditFrame);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)DriverContext.Driver;
-            js.ExecuteScript("arguments[0].setAttribute('value', arguments[1])", CreditCard, 4111111111111111);
-            js.ExecuteScript("arguments[0].value = '" + 4111111111111111 + "';", CreditCard);
-            js.ExecuteScript("arguments[0].value = '" + 824 + "';", ExpirationDate);
-            js.ExecuteScript("arguments[0].value = '" + 111 + "';", CVC);
-            CreditCard.SendKeys("4111111111111111");
-            ExpirationDate.SendKeys("824");
-            CVC.SendKeys("111");
+            // DriverContext.Driver.SwitchTo().Frame(CreditFrame);
+            //IJavaScriptExecutor js = (IJavaScriptExecutor)DriverContext.Driver;
+            //js.ExecuteScript("arguments[0].setAttribute('value', arguments[1])", CreditCard, 4111111111111111);
+            //js.ExecuteScript("arguments[0].value = '" + 4111111111111111 + "';", CreditCard);
+            //js.ExecuteScript("arguments[0].value = '" + 824 + "';", ExpirationDate);
+            //js.ExecuteScript("arguments[0].value = '" + 111 + "';", CVC);
+            //CreditCard.SendKeys("4111111111111111");
+            //ExpirationDate.SendKeys("824");
+            //CVC.SendKeys("111");
+            DriverContext.Driver.SwitchTo().Frame(3);
+            DriverContext.Driver.FindElement(By.CssSelector("input.InputElement.is-empty.Input.Input--empty")).SendKeys("111");
         }
         public void ClickPlaceOrder()
         {
