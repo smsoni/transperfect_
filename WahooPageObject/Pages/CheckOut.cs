@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WahooFitnessFramework;
 
@@ -34,7 +35,8 @@ namespace WahooPageObject.Pages
         {
             get
             {
-                return DriverContext.Driver.FindElement(By.XPath(placeOrderXpath));
+                return DriverContext.Driver.FindElement(By.XPath("(//button[@type= 'submit' and contains(@title, 'Place Order')])[3]"));
+              
             }
         }
         public IWebElement CreditFrame
@@ -162,27 +164,37 @@ namespace WahooPageObject.Pages
             state.SelectByText("Cantabria");
             Zipcode.SendKeys("08940");
             Phone.SendKeys("5555555555");
-
+            Thread.Sleep(TimeSpan.FromSeconds(30));
             ExpressShipping.Click();
         }
 
         public void AddCardDetails()
         {
-            // DriverContext.Driver.SwitchTo().Frame(CreditFrame);
-            //IJavaScriptExecutor js = (IJavaScriptExecutor)DriverContext.Driver;
-            //js.ExecuteScript("arguments[0].setAttribute('value', arguments[1])", CreditCard, 4111111111111111);
-            //js.ExecuteScript("arguments[0].value = '" + 4111111111111111 + "';", CreditCard);
-            //js.ExecuteScript("arguments[0].value = '" + 824 + "';", ExpirationDate);
-            //js.ExecuteScript("arguments[0].value = '" + 111 + "';", CVC);
-            //CreditCard.SendKeys("4111111111111111");
-            //ExpirationDate.SendKeys("824");
-            //CVC.SendKeys("111");
-            DriverContext.Driver.SwitchTo().Frame(3);
-            DriverContext.Driver.FindElement(By.CssSelector("input.InputElement.is-empty.Input.Input--empty")).SendKeys("111");
+            IJavaScriptExecutor js = (IJavaScriptExecutor)DriverContext.Driver;
+
+            List<IWebElement> frame = DriverContext.Driver.FindElements(By.XPath("//iframe[contains(@name, '__privateStripeFrame')]")).ToList();
+            DriverContext.Driver.SwitchTo().Frame(frame[0]);
+            IWebElement cardDetails = DriverContext.Driver.FindElement(By.CssSelector("Input.InputElement.is-empty.Input.Input--empty"));
+            js.ExecuteScript("arguments[0].value = '4111111111111111'", cardDetails);
+
+
+            DriverContext.Driver.SwitchTo().DefaultContent();
+            DriverContext.Driver.SwitchTo().Frame(frame[1]);
+            IWebElement date = DriverContext.Driver.FindElement(By.CssSelector("Input.InputElement.is-empty.Input.Input--empty"));
+
+            js.ExecuteScript("arguments[0].value = '1021'", date);
+
+            DriverContext.Driver.SwitchTo().DefaultContent();
+            DriverContext.Driver.SwitchTo().Frame(frame[2]);
+            IWebElement CVC = DriverContext.Driver.FindElement(By.CssSelector("Input.InputElement.is-empty.Input.Input--empty"));
+
+            js.ExecuteScript("arguments[0].value = '396'", CVC);
+
         }
         public void ClickPlaceOrder()
         {
-            PlaceOrder.Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)DriverContext.Driver;
+            js.ExecuteScript("arguments[0].click()", PlaceOrder);
         }
     }
 }

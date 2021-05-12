@@ -137,15 +137,22 @@ namespace WahooPageObject.Pages
         public void RemoveFromCart()
         {
             Remove.Click();
-            Thread.Sleep(15);
+            Thread.Sleep(30);
             RemoveOK.Click();
             Thread.Sleep(15);
-            MiniClose.Click();
+            try
+            {
+                MiniClose.Click();
+            }
+            catch(Exception ex)
+            {
+                Thread.Sleep(15);
+                MiniClose.Click();
+            }
         }
 
         public void CheckOut()
         {
-
             ViewAndEditCheckOut.Click();
         }
     }
