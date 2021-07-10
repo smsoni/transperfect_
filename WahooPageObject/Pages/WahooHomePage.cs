@@ -13,11 +13,11 @@ namespace WahooPageObject.Pages
         #region Constructor
         public WahooHomePage()
         {
-            DriverInfo driver = new DriverInfo();
-            driver.DriverPath = ".\\";
-            driver.DriverType = DriverType.CHROME;
-            Driver.BrowserInitialize(driver);
-            Driver.GoToUrl("https://eu.wahoofitness.com/");
+            //DriverInfo driver = new DriverInfo();
+            //driver.DriverPath = ".\\";
+            //driver.DriverType = DriverType.CHROME;
+            //Driver.BrowserInitialize(driver);
+            NavigateToWahooForm();
         }
         #endregion Constructor
 
@@ -34,9 +34,14 @@ namespace WahooPageObject.Pages
             }
         }
 
+        public void NavigateToWahooForm()
+        {
+            DriverContext.Driver.Navigate().GoToUrl("https://eu.wahoofitness.com/");
+        }
         public void ShopItems()
         {
             NavigationPane.Click();
         }
+
     }
 }

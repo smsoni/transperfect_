@@ -4,7 +4,7 @@ using System;
 
 namespace WahooFitnessFramework
 {
-    public class DriverContext
+    public partial class DriverContext
     {
         private static IWebDriver _driver;
 

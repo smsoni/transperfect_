@@ -9,7 +9,7 @@ using WahooPageObject.Pages;
 namespace WahooFitness
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTest1 : BaseTest
     {
         [TestMethod]
         public void TestMethod1()
