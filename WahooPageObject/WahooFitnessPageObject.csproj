@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcuIntegrate.cs" />
     <Compile Include="Pages\Cart.cs" />
     <Compile Include="Pages\CheckOut.cs" />
     <Compile Include="Pages\Devices.cs" />

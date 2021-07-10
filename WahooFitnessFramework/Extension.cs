@@ -10,7 +10,7 @@ namespace WahooFitnessFramework
     public static class Extension
     {
         public static TAttribute GetAttribute<TAttribute>(this Enum value)
-   where TAttribute : Attribute
+        where TAttribute : Attribute
         {
             var enumType = value.GetType();
             var name = Enum.GetName(enumType, value);
